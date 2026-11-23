@@ -1,0 +1,1 @@
+message: titlul message_verbose: continutul sender: 3
