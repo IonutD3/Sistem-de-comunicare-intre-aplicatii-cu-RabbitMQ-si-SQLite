@@ -331,28 +331,28 @@ All applications communicate through the RabbitMQ queue named `hello`.
 
 ```mermaid
 flowchart TB
-    subgraph PRODUCATORI["Aplicații producătoare"]
-        A1["Aplicația 1<br/>Producător de mesaje<br/>UUID, Timestamp, Sender<br/>Interval: 120 secunde"]
-        A2["Aplicația 2<br/>Producător de mesaje<br/>UUID, Timestamp, Sender<br/>Interval: 60 secunde"]
-        A3["Aplicația 3<br/>Producător de un singur mesaj<br/>La pornire<br/>UUID, Timestamp, Sender"]
+    subgraph PRODUCERS["Producer Applications"]
+        A1["Application 1<br/>Message Producer<br/>UUID, Timestamp, Sender<br/>Interval: 120 seconds"]
+        A2["Application 2<br/>Message Producer<br/>UUID, Timestamp, Sender<br/>Interval: 60 seconds"]
+        A3["Application 3<br/>Single-Message Producer<br/>At Startup<br/>UUID, Timestamp, Sender"]
     end
 
     A1 --> Q
     A2 --> Q
     A3 --> Q
 
-    Q["Coada de mesaje: hello"]
+    Q["Message Queue: hello"]
 
     subgraph BROKER["RabbitMQ"]
-        R["Broker de mesaje<br/>Transmitere și gestionare mesaje<br/>Coada: hello"]
+        R["Message Broker<br/>Message Delivery and Management<br/>Queue: hello"]
     end
 
     Q --> R
     R --> C
 
-    C["Aplicația 4<br/>Consumator de mesaje<br/>Recepționează, validează și procesează<br/>Afișează mesajele"]
+    C["Application 4<br/>Message Consumer<br/>Receives, Validates, and Processes Messages<br/>Displays Messages"]
 
-    C --> DB[("SQLite<br/>Baza de date<br/>Mesaje și istoric recepționare")]
+    C --> DB[("SQLite<br/>Database<br/>Messages and Reception History")]
 
     classDef producer fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
     classDef broker fill:#ffedd5,stroke:#ea580c,color:#9a3412
